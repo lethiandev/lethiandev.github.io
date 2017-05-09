@@ -125,6 +125,7 @@ h1 > span {
 }
 
 .panel-logo > img {
+  background: #fff;
   margin-left: -64px;
   margin-bottom: -64px;
   border: solid 16px #fff;
