@@ -1,0 +1,129 @@
+@import url('//fonts.googleapis.com/css?family=Raleway:200,400,700');
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+html, body, * {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(45deg, #088 30%, #48f);
+  background-size: 200% 100%;
+  font-family: 'Raleway', sans-serif;
+
+  animation: backgroundScroll 30s ease-in-out infinite;
+}
+
+@keyframes backgroundScroll {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 0%; }
+  100% { background-position: 0% 0%; }
+}
+
+h1 {
+  font-weight: 200;
+  font-size: 1.7em;
+}
+
+h1 > span {
+  display: block;
+  text-align: right;
+  font-size: .65em;
+}
+
+#profile {
+  position: absolute;
+  top: 50%; left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.panel {
+  background: rgba(0,0,0,.3);
+  border-radius: 3px;
+  overflow: hidden;
+
+  box-shadow: 8px 8px 32px rgba(0,0,0,.75);
+  animation: fadeIn 240ms ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: matrix3d(1,0,0,0, 0,1,0,-0.0006, 0,0,1,0, 0,0,0,1);
+    opacity: 0.2;
+  }
+  100% {
+    transform: matrix3d(1,0,0,0, 0,1,0,-0.0000, 0,0,1,0, 0,0,0,1);
+    opacity: 1;
+  }
+}
+
+.panel-heading,
+.panel-content {
+  background-color: #fff;
+  text-align: center;
+}
+
+.panel-heading {
+  margin-bottom: 1px;
+  height: 72px;
+
+  position: relative;
+}
+
+.panel-logo {
+  position: absolute;
+  left: 50%; bottom: 0px;
+}
+
+.panel-logo > img {
+  margin-left: -64px;
+  margin-bottom: -64px;
+  border-radius: 100%;
+  border: solid 16px #fff;
+}
+
+.panel-content {
+  padding: 64px 28px 24px 28px;
+}
+
+.links {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.links > a,
+.links > a:link,
+.links > a:visited,
+.links > a:hover,
+.links > a:active {
+  padding: 16px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #aaa;
+  display: block;
+  width: 36px;
+  height: 36px;
+  border: solid 1px #aaa;
+  border-radius: 100%;
+}
+
+.links > a:hover,
+.links > a:active {
+  color: #666;
+  border-color: #666;
+}
+
+/* center link element */
+.links > a:nth-child(2) {
+  margin: 0 8px;
+}
+
+.links > a:nth-child(2):before {
+  margin-left: -3px;
+}
