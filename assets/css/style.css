@@ -17,6 +17,7 @@ body {
   background: linear-gradient(45deg, #088 30%, #48f);
   background-size: 200% 100%;
   font-family: 'Raleway', sans-serif;
+  overflow: hidden;
 
   -webkit-animation: backgroundScroll 30s ease-in-out infinite;
   -moz-animation: backgroundScroll 30s ease-in-out infinite;
