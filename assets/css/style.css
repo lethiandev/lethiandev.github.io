@@ -62,17 +62,16 @@ h1 > span {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  overflow: hidden;
 
   -webkit-box-shadow: 8px 8px 32px rgba(0,0,0,.75);
   -moz-box-shadow: 8px 8px 32px rgba(0,0,0,.75);
   box-shadow: 8px 8px 32px rgba(0,0,0,.75);
 }
 
-.animated > .panel {
-  -webkit-animation: fadeIn 240ms ease-out;
-  -moz-animation: fadeIn 240ms ease-out;
-  animation: fadeIn 240ms ease-out;
+.animated .panel-3d {
+  -webkit-animation: fadeIn 0.2s ease-out;
+  -moz-animation: fadeIn 0.2s ease-out;
+  animation: fadeIn 0.2s ease-out;
 }
 
 @-webkit-keyframes fadeIn {
@@ -117,9 +116,10 @@ h1 > span {
 
 .panel-heading {
   margin-bottom: 1px;
-  height: 72px;
+  height: 78px;
 
   position: relative;
+  z-index: 1;
 }
 
 .panel-logo {
@@ -183,4 +183,34 @@ h1 > span {
 
 .links > a:nth-child(2):before {
   margin-left: -3px;
+}
+
+/* hover3d */
+.hover-in {
+  transition: .3s ease-out;
+}
+
+.hover-out {
+  transition: .3s ease-in;
+}
+
+.panel,
+.panel-heading,
+.panel-content {
+  transform-style: preserve-3d;
+  pointer-events: none;
+  user-select: none;
+}
+
+.panel-content .links {
+  pointer-events: initial;
+}
+
+.panel {
+  transform: translateZ(-20px);
+}
+
+.panel-heading > *,
+.panel-content > * {
+  transform: translateZ(20px);
 }
