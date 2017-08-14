@@ -1,6 +1,6 @@
 'use strict';
 
-window.addEventListener('load', showPanelDelayed(100));
+window.addEventListener('load', showPanelDelayed(300));
 
 function showPanelDelayed(ms) {
   return function () {
@@ -10,5 +10,6 @@ function showPanelDelayed(ms) {
 
 function showPanel() {
   var profile = document.getElementById('profile');
-  profile.style.display = '';
+  profile.style.visibility = 'visible';
+  profile.classList.add('animated');
 }

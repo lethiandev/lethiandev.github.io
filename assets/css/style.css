@@ -67,6 +67,9 @@ h1 > span {
   -webkit-box-shadow: 8px 8px 32px rgba(0,0,0,.75);
   -moz-box-shadow: 8px 8px 32px rgba(0,0,0,.75);
   box-shadow: 8px 8px 32px rgba(0,0,0,.75);
+}
+
+.animated > .panel {
   -webkit-animation: fadeIn 240ms ease-out;
   -moz-animation: fadeIn 240ms ease-out;
   animation: fadeIn 240ms ease-out;
