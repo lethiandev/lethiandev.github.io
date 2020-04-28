@@ -1,35 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Konrad Nowakowski Portfolio</title>
-  <link type="text/css" rel="stylesheet" href="assets/css/reset.css">
-  <link type="text/css" rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-  <div id="cloak"></div>
-  <div id="profile" style="visibility: hidden">
-    <div class="panel-3d">
-      <div class="panel">
-        <div class="panel-heading">
-          <div class="panel-logo">
-            <img src="//www.gravatar.com/avatar/47ae238085660fd413c5b0494ad0e257?s=96">
-          </div>
-        </div>
-        <div class="panel-content">
-          <h1>Konrad Nowakowski <span>aka Lethian</span></h1>
-          <div class="links">
-            <a class="fa fa-github" title="GitHub profile" href="//github.com/lethiandev" target="_blank"></a>
-            <a class="fa fa-jsfiddle" title="Public fiddles" href="//jsfiddle.net/user/lethian92/fiddles/" target="_blank"></a>
-            <a class="fa fa-rss" title="Blog" href="//lethiandev.github.io/blog/" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-    </div>
+---
+title: Konrad Nowakowski | Portfolio
+layout: default
+---
+<p>This is my Jekyll page</p>
+<div>
+  {% for project in site.projects %}
+  <div>
+    <h2>{{ project.title }}</h2>
+    <p>{{ project.description }}</p>
+    <p>{{ project.content | markdownify }}</p>
   </div>
-  <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="assets/js/jquery.hover3d.min.js"></script>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+  {% endfor %}
+</div>

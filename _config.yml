@@ -1,0 +1,14 @@
+# Site Settings
+title: Konrad Nowakowski Portfolio
+email: konrad.x92@gmail.com
+description: >-
+  My portfolio website.
+baseurl: /
+github_username: lethiandev
+
+# Build Settings
+markdown: kramdown
+collections:
+  projects:
+sass:
+  style: compressed
