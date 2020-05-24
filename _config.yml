@@ -10,5 +10,7 @@ github_username: lethiandev
 markdown: kramdown
 collections:
   projects:
+    output: true
+    permalink: /:collection/:title
 sass:
   style: compressed
