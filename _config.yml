@@ -14,3 +14,9 @@ collections:
     permalink: /:collection/:title
 sass:
   style: compressed
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - package*.json
+  - tsconfig.json
