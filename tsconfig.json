@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "AMD",
+    "outFile": "assets/js/bundle.js"
+  },
+  "include": [
+    "_src/**/*"
+  ]
+}
