@@ -1,5 +1,6 @@
 # Env
 .vscode
+node_modules
 
 # Jekyll
 _site

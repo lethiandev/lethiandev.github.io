@@ -1,0 +1,17 @@
+{
+  "name": "lethiandev.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "My portfolio website",
+  "main": "index.html",
+  "scripts": {
+    "watch": "tsc -p tsconfig.json --watch",
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Konrad Nowakowski <konrad.x92@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
+}
