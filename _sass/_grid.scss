@@ -1,0 +1,31 @@
+.columns,
+.column {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.columns {
+  margin: 0 -10px;
+  flex-wrap: wrap;
+}
+
+.column {
+  margin-bottom: 20px;
+  padding: 0 10px;
+
+  @for $x from 1 to 12 {
+    &.column-#{$x} {
+      $column-width: ($x / 12) * 100%;
+      flex-basis: $column-width;
+      width: $column-width;
+    }
+  }
+
+  @media (max-width: 767px) {
+    flex-basis: 100% !important;
+    width: 100% !important;
+  }
+}
