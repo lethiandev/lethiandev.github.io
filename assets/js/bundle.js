@@ -1,6 +1,6 @@
 define("hello", ["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.sayHello = void 0;
     function sayHello() {
         alert('Hello, world!');
@@ -9,7 +9,7 @@ define("hello", ["require", "exports"], function (require, exports) {
 });
 define("index", ["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     window.addEventListener('popstate', function (ev) {
         console.log('onpopstate', document.location, JSON.stringify(ev.state));
         ev.preventDefault();
@@ -27,3 +27,4 @@ define("index", ["require", "exports"], function (require, exports) {
         _loop_1(i);
     }
 });
+//# sourceMappingURL=bundle.js.map
