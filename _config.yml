@@ -12,6 +12,13 @@ collections:
   projects:
     output: true
     permalink: /:collection/:title
+defaults:
+  -
+    scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
 sass:
   style: compressed
 exclude:
