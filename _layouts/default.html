@@ -9,15 +9,10 @@
   <link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-  <header class="hero hero-header">
-    <div class="hero-body">
-      <div class="container text-center">
-        <h1 class="hero-title">Hi, I'm Konrad</h1>
-        <p class="hero-subtitle">And welcome to my porfolio</p>
-      </div>
-    </div>
+  <header>
+    {% include parallax.html %}
   </header>
-  <main class="container">
+  <main class="main">
     {{ content }}
   </main>
   <script src="/assets/js/require.js" data-main="index"></script>
