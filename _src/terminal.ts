@@ -13,7 +13,7 @@ interface TerminalSection {
 
 export async function createTerminal(el: HTMLElement) {
   const sections = buildTerminalSections(el.children)
-  executeTerminalSections(el, sections)
+  await executeTerminalSections(el, sections)
 }
 
 async function executeTerminalSections(el: HTMLElement, sections: TerminalSection[]) {
