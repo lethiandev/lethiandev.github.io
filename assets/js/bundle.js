@@ -83,9 +83,14 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
         return __awaiter(this, void 0, void 0, function () {
             var sections;
             return __generator(this, function (_a) {
-                sections = buildTerminalSections(el.children);
-                executeTerminalSections(el, sections);
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        sections = buildTerminalSections(el.children);
+                        return [4 /*yield*/, executeTerminalSections(el, sections)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         });
     }
@@ -163,6 +168,19 @@ define("index", ["require", "exports", "terminal", "utils"], function (require, 
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var terminalElements = document.getElementsByClassName('terminal');
-    utils_2.forEachElement(terminalElements, terminal_1.createTerminal);
+    utils_2.forEachElement(terminalElements, initTerminal);
+    function initTerminal(el) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, terminal_1.createTerminal(el)];
+                    case 1:
+                        _a.sent();
+                        console.log("Terminal done!");
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }
 });
 //# sourceMappingURL=bundle.js.map
