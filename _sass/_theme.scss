@@ -7,10 +7,20 @@ html, body {
 body {
   overflow-x: hidden;
   overflow-y: auto;
+  width: 100vw;
   height: 100vh;
   perspective: 1px;
   perspective-origin: center;
   transform-style: preserve-3d;
+}
+
+.header {
+  position: relative;
+  height: 100vh;
+
+  > * {
+    position: relative;
+  }
 }
 
 .container {
@@ -39,10 +49,7 @@ body {
 .parallax {
   background: #282828;
   overflow: hidden;
-  width: 100vw;
-  height: 100vh;
   transform-style: preserve-3d;
-  position: relative;
 }
 
 .parallax-layer {
@@ -52,13 +59,6 @@ body {
   background-size: cover;
   transform-style: preserve-3d;
   transform-origin: center;
-
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
 
   &:nth-child(1) {
     background-image: url("/assets/images/far-buildings.png");
@@ -74,4 +74,13 @@ body {
     background-image: url("/assets/images/foreground.png");
     transform: translateZ(-1px) scale(2);
   }
+}
+
+.parallax,
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
