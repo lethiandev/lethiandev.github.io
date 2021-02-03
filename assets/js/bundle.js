@@ -34,6 +34,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 define("hello", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -73,12 +80,6 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createTerminal = void 0;
-    var TerminalSectionType;
-    (function (TerminalSectionType) {
-        TerminalSectionType["TYPE_CARRIAGE"] = "carriage";
-        TerminalSectionType["TYPE_CHARACTER"] = "character";
-        TerminalSectionType["TYPE_DELAY"] = "delay";
-    })(TerminalSectionType || (TerminalSectionType = {}));
     function createTerminal(el) {
         return __awaiter(this, void 0, void 0, function () {
             var sections;
@@ -101,65 +102,61 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        el.innerHTML = '';
                         spanElement = null;
-                        el.innerHTML = "";
                         _a.label = 1;
                     case 1:
-                        if (!(sections.length > 0)) return [3 /*break*/, 7];
+                        if (!(sections.length > 0)) return [3 /*break*/, 8];
                         section = sections.shift();
-                        if (!((section === null || section === void 0 ? void 0 : section.type) === TerminalSectionType.TYPE_CARRIAGE)) return [3 /*break*/, 2];
-                        el.append(document.createElement("br"));
-                        spanElement = document.createElement("span");
-                        el.append(spanElement);
-                        return [3 /*break*/, 6];
+                        if (!(typeof section === 'undefined')) return [3 /*break*/, 2];
+                        return [3 /*break*/, 1];
                     case 2:
-                        if (!((section === null || section === void 0 ? void 0 : section.type) === TerminalSectionType.TYPE_CHARACTER)) return [3 /*break*/, 4];
-                        if (spanElement == null) {
-                            spanElement = document.createElement("span");
-                            el.append(spanElement);
-                        }
-                        if (spanElement) {
-                            spanElement.append(document.createTextNode(section.value));
-                        }
-                        return [4 /*yield*/, utils_1.delay(70)];
+                        if (!(typeof section === 'number')) return [3 /*break*/, 4];
+                        return [4 /*yield*/, utils_1.delay(section)];
                     case 3:
                         _a.sent();
-                        return [3 /*break*/, 6];
+                        return [3 /*break*/, 7];
                     case 4:
-                        if (!((section === null || section === void 0 ? void 0 : section.type) === TerminalSectionType.TYPE_DELAY)) return [3 /*break*/, 6];
-                        return [4 /*yield*/, utils_1.delay(section.value)];
+                        if (!(section === '\n')) return [3 /*break*/, 5];
+                        if (spanElement) {
+                            el.append(document.createElement('br'));
+                        }
+                        spanElement = document.createElement('span');
+                        el.classList.remove('typing');
+                        el.append(spanElement);
+                        return [3 /*break*/, 7];
                     case 5:
+                        if (!spanElement) return [3 /*break*/, 7];
+                        spanElement.textContent += section;
+                        el.classList.add('typing');
+                        return [4 /*yield*/, utils_1.delay(80)];
+                    case 6:
                         _a.sent();
-                        _a.label = 6;
-                    case 6: return [3 /*break*/, 1];
-                    case 7: return [2 /*return*/];
+                        _a.label = 7;
+                    case 7: return [3 /*break*/, 1];
+                    case 8:
+                        el.classList.remove('typing');
+                        return [2 /*return*/];
                 }
             });
         });
     }
     function buildTerminalSections(elements) {
-        var sections = [];
-        for (var i = 0, len = elements.length; i < len; i++) {
-            var element = elements.item(i);
-            if (element instanceof HTMLSpanElement) {
-                sections.push.apply(sections, buildComplexSections(element));
-            }
-        }
-        return sections;
+        var transform = function (acc, el) { return __spreadArrays(acc, prepareSection(el)); };
+        return Array.from(elements).reduce(transform, []);
     }
-    function buildComplexSections(element) {
-        var sections = [];
-        sections.push({ type: TerminalSectionType.TYPE_CARRIAGE });
-        if (element.dataset["delay"]) {
-            var value = Number(element.dataset["delay"]);
-            sections.push({ type: TerminalSectionType.TYPE_DELAY, value: value });
+    function prepareSection(element) {
+        if (element instanceof HTMLSpanElement) {
+            return prepareComplexSection(element);
         }
-        if (element.textContent) {
-            var sequence = element.textContent.trim();
-            for (var _i = 0, _a = sequence.split(''); _i < _a.length; _i++) {
-                var value = _a[_i];
-                sections.push({ type: TerminalSectionType.TYPE_CHARACTER, value: value });
-            }
+        return [];
+    }
+    function prepareComplexSection(element) {
+        var text = (element.textContent || '').trim().split('');
+        var sections = __spreadArrays(['\n'], text);
+        if (element.dataset['delay']) {
+            var delay_1 = Number(element.dataset['delay']);
+            sections.splice(1, 0, delay_1);
         }
         return sections;
     }
@@ -168,8 +165,8 @@ define("index", ["require", "exports", "terminal", "utils"], function (require, 
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var terminalElements = document.getElementsByClassName('terminal');
-    utils_2.forEachElement(terminalElements, initTerminal);
-    function initTerminal(el) {
+    utils_2.forEachElement(terminalElements, startTerminal);
+    function startTerminal(el) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {

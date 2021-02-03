@@ -41,6 +41,10 @@ body {
     animation: blinking linear 1s infinite;
   }
 
+  &.typing:after {
+    animation: none;
+  }
+
   > span::before {
     content: "> ";
   }

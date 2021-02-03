@@ -1,15 +1,6 @@
-import { delay } from "./utils"
+import { delay } from './utils'
 
-enum TerminalSectionType {
-  TYPE_CARRIAGE = "carriage",
-  TYPE_CHARACTER = "character",
-  TYPE_DELAY = "delay",
-}
-
-interface TerminalSection {
-  type: TerminalSectionType
-  value?: string|number|null
-}
+type TerminalSection = string|number
 
 export async function createTerminal(el: HTMLElement) {
   const sections = buildTerminalSections(el.children)
@@ -17,60 +8,55 @@ export async function createTerminal(el: HTMLElement) {
 }
 
 async function executeTerminalSections(el: HTMLElement, sections: TerminalSection[]) {
-  let spanElement: HTMLSpanElement | null = null
-  el.innerHTML = ""
+  el.innerHTML = ''
 
+  let spanElement = null
   while (sections.length > 0) {
     const section = sections.shift()
-    if (section?.type === TerminalSectionType.TYPE_CARRIAGE) {
-      el.append(document.createElement("br"))
-      spanElement = document.createElement("span")
+    if (typeof section === 'undefined') {
+      continue
+    }
+    else if (typeof section === 'number') {
+      await delay(section)
+    }
+    else if (section === '\n') {
+      if (spanElement) {
+        el.append(document.createElement('br'))
+      }
+      spanElement = document.createElement('span')
+      el.classList.remove('typing')
       el.append(spanElement)
     }
-    else if (section?.type === TerminalSectionType.TYPE_CHARACTER) {
-      if (spanElement == null) {
-        spanElement = document.createElement("span")
-        el.append(spanElement)
-      }
-      if (spanElement) {
-        spanElement.append(document.createTextNode(section.value as string))
-      }
-      await delay(70)
-    }
-    else if (section?.type === TerminalSectionType.TYPE_DELAY) {
-      await delay(section.value as number)
+    else if (spanElement) {
+      spanElement.textContent += section
+      el.classList.add('typing')
+      await delay(80)
     }
   }
+
+  el.classList.remove('typing')
 }
 
 function buildTerminalSections(elements: HTMLCollectionOf<Element>): TerminalSection[] {
-  let sections: TerminalSection[] = []
-
-  for (let i = 0, len = elements.length; i < len; i++) {
-    const element = elements.item(i)
-    if (element instanceof HTMLSpanElement) {
-      sections.push(...buildComplexSections(element))
-    }
-  }
-
-  return sections
+  const transform = (acc: TerminalSection[], el: Element) => [...acc, ...prepareSection(el)]
+  return Array.from(elements).reduce(transform, [])
 }
 
-function buildComplexSections(element: HTMLElement): TerminalSection[] {
-  let sections: TerminalSection[] = []
-
-  sections.push({ type: TerminalSectionType.TYPE_CARRIAGE })
-
-  if (element.dataset["delay"]) {
-    let value = Number(element.dataset["delay"])
-    sections.push({ type: TerminalSectionType.TYPE_DELAY, value })
+function prepareSection(element: Element): TerminalSection[] {
+  if (element instanceof HTMLSpanElement) {
+    return prepareComplexSection(element)
   }
 
-  if (element.textContent) {
-    let sequence = element.textContent.trim()
-    for (let value of sequence.split('')) {
-      sections.push({ type: TerminalSectionType.TYPE_CHARACTER, value })
-    }
+  return []
+}
+
+function prepareComplexSection(element: HTMLElement): TerminalSection[] {
+  const text = (element.textContent || '').trim().split('')
+  const sections: TerminalSection[] = ['\n', ...text]
+
+  if (element.dataset['delay']) {
+    const delay = Number(element.dataset['delay'])
+    sections.splice(1, 0, delay)
   }
 
   return sections
