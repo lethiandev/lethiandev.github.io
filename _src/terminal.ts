@@ -1,13 +1,13 @@
 import { delay } from './utils'
 
 interface Terminal {
-  root: HTMLElement;
-  body: HTMLElement;
+  root: HTMLElement
+  body: HTMLElement
 }
 
 interface TerminalLine {
-  element: HTMLElement;
-  value: string;
+  element: HTMLElement
+  value: string
 }
 
 export async function createTerminal(root: HTMLElement) {
@@ -79,7 +79,7 @@ function parseTerminalBody(body: HTMLElement): TerminalLine[] {
 }
 
 function transformTerminalElement(element: HTMLElement): TerminalLine {
-  const value = element.textContent || '';
+  const value = element.textContent || ''
   element.innerHTML = ''
   element.remove()
 

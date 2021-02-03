@@ -8,9 +8,9 @@ export function forEachElement<T extends Element, E extends T>(elements: HTMLCol
 }
 
 export function forEachNode<T extends Node>(nodes: NodeListOf<T>, fn: (el: T) => void) {
-  nodes.forEach(value => value && fn.call(null, value));
+  nodes.forEach(value => value && fn.call(null, value))
 }
 
 export async function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
