@@ -75,7 +75,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
     exports.createTerminal = void 0;
     function createTerminal(root) {
         return __awaiter(this, void 0, void 0, function () {
-            var body, terminal, lines;
+            var body, terminal, lines, link;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -87,7 +87,19 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                     case 1:
                         _a.sent();
                         _a.label = 2;
-                    case 2: return [2 /*return*/];
+                    case 2:
+                        link = root.querySelector('.terminal-continue');
+                        if (link instanceof HTMLAnchorElement) {
+                            link.addEventListener('click', function (ev) {
+                                var href = link.getAttribute('href') || '';
+                                var target = document.querySelector(href);
+                                if (target instanceof HTMLElement) {
+                                    target.scrollIntoView({ behavior: 'smooth' });
+                                    ev.preventDefault();
+                                }
+                            });
+                        }
+                        return [2 /*return*/];
                 }
             });
         });
