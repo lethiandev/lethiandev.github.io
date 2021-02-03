@@ -1,0 +1,56 @@
+.terminal {
+  text-shadow: 0 2px 12px rgba(0, 255, 0, 0.4);
+  font-family: 'VT323', monospace;
+  font-size: 36pt;
+  color: #40ff00;
+  display: flex;
+  flex-direction: column;
+
+  // Force hardware rendering
+  // Fixes issue with animated elements
+  transform: scale(1);
+}
+
+.terminal-body {
+  margin-bottom: 100px;
+
+  p::before {
+    content: "> ";
+  }
+  p:last-child:after {
+    content: "|";
+    font-weight: 700;
+    animation: blinking linear 1s infinite;
+  }
+
+  // Keep cursor visible on 'typing' state
+  .terminal--typing & p:last-child::after {
+    animation: none;
+  }
+}
+
+.terminal-footer {
+  text-align: center;
+  margin-top: auto;
+}
+
+.terminal-continue {
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-weight: 700;
+  color: inherit;
+  animation: blinking linear 1s 200ms infinite;
+
+  // Hide continue button on animating terminal
+  .terminal--animating & {
+    display: none;
+  }
+}
+
+@keyframes blinking {
+  0% { opacity: 1.0; }
+  50% { opacity: 1.0; }
+  51% { opacity: 0.0; }
+  100% { opacity: 0.0; }
+}

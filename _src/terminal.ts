@@ -1,64 +1,74 @@
 import { delay } from './utils'
 
-type TerminalSection = string|number
-
-export async function createTerminal(el: HTMLElement) {
-  const sections = buildTerminalSections(el.children)
-  await executeTerminalSections(el, sections)
+interface Terminal {
+  root: HTMLElement;
+  body: HTMLElement;
 }
 
-async function executeTerminalSections(el: HTMLElement, sections: TerminalSection[]) {
-  el.innerHTML = ''
+interface TerminalLine {
+  element: HTMLElement;
+  value: string;
+}
 
-  let spanElement = null
-  while (sections.length > 0) {
-    const section = sections.shift()
-    if (typeof section === 'undefined') {
-      continue
-    }
-    else if (typeof section === 'number') {
-      el.classList.remove('typing')
-      await delay(section)
-    }
-    else if (section === '\n') {
-      if (spanElement) {
-        el.append(document.createElement('br'))
-      }
-      spanElement = document.createElement('span')
-      el.classList.remove('typing')
-      el.append(spanElement)
-    }
-    else if (spanElement) {
-      spanElement.textContent += section
-      el.classList.add('typing')
-      await delay(80)
-    }
+export async function createTerminal(root: HTMLElement) {
+  const body = root.querySelector('.terminal-body')
+  if (body instanceof HTMLElement) {
+    const terminal: Terminal = { root, body }
+    const lines = fetchTerminalLines(terminal)
+    await executeTerminal(terminal, lines)
+  }
+}
+
+async function executeTerminal(terminal: Terminal, lines: TerminalLine[]) {
+  const root = terminal.root
+  root.classList.add('terminal--animating')
+
+  while (lines.length > 0) {
+    const line = lines.shift() as TerminalLine
+    await executeTerminalLine(terminal, line)
   }
 
-  el.classList.remove('typing')
+  await delay(600)
+  root.classList.remove('terminal--animating')
 }
 
-function buildTerminalSections(elements: HTMLCollectionOf<Element>): TerminalSection[] {
-  const transform = (acc: TerminalSection[], el: Element) => [...acc, ...prepareSection(el)]
-  return Array.from(elements).reduce(transform, [])
-}
+async function executeTerminalLine(terminal: Terminal, line: TerminalLine) {
+  const { root, body } = terminal
 
-function prepareSection(element: Element): TerminalSection[] {
-  if (element instanceof HTMLSpanElement) {
-    return prepareComplexSection(element)
+  body.append(line.element)
+
+  if (line.element.dataset['delay']) {
+    const delayTime = Number(line.element.dataset['delay'])
+    await delay(delayTime)
   }
 
-  return []
-}
+  root.classList.add('terminal--typing')
 
-function prepareComplexSection(element: HTMLElement): TerminalSection[] {
-  const text = (element.textContent || '').trim().split('')
-  const sections: TerminalSection[] = ['\n', ...text]
-
-  if (element.dataset['delay']) {
-    const delay = Number(element.dataset['delay'])
-    sections.splice(1, 0, delay)
+  const sequence = line.value.split('')
+  while (sequence.length > 0) {
+    const seq = sequence.shift() || ''
+    line.element.textContent += seq
+    await delay(80)
   }
 
-  return sections
+  await delay(200)
+  root.classList.remove('terminal--typing')
+}
+
+function fetchTerminalLines(terminal: Terminal): TerminalLine[] {
+  return terminal.body ? parseTerminalBody(terminal.body) : []
+}
+
+function parseTerminalBody(body: HTMLElement): TerminalLine[] {
+  return Array.from(body.children)
+    .filter(el => el instanceof HTMLParagraphElement)
+    .map(el => transformTerminalElement(el as HTMLElement))
+}
+
+function transformTerminalElement(element: HTMLElement): TerminalLine {
+  const value = element.textContent || '';
+  element.innerHTML = ''
+  element.remove()
+
+  return { element, value }
 }

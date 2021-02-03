@@ -34,13 +34,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 define("hello", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -80,86 +73,99 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createTerminal = void 0;
-    function createTerminal(el) {
+    function createTerminal(root) {
         return __awaiter(this, void 0, void 0, function () {
-            var sections;
+            var body, terminal, lines;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sections = buildTerminalSections(el.children);
-                        return [4 /*yield*/, executeTerminalSections(el, sections)];
+                        body = root.querySelector('.terminal-body');
+                        if (!(body instanceof HTMLElement)) return [3 /*break*/, 2];
+                        terminal = { root: root, body: body };
+                        lines = fetchTerminalLines(terminal);
+                        return [4 /*yield*/, executeTerminal(terminal, lines)];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/];
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
                 }
             });
         });
     }
     exports.createTerminal = createTerminal;
-    function executeTerminalSections(el, sections) {
+    function executeTerminal(terminal, lines) {
         return __awaiter(this, void 0, void 0, function () {
-            var spanElement, section;
+            var root, line;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        el.innerHTML = '';
-                        spanElement = null;
+                        root = terminal.root;
+                        root.classList.add('terminal--animating');
                         _a.label = 1;
                     case 1:
-                        if (!(sections.length > 0)) return [3 /*break*/, 8];
-                        section = sections.shift();
-                        if (!(typeof section === 'undefined')) return [3 /*break*/, 2];
-                        return [3 /*break*/, 1];
+                        if (!(lines.length > 0)) return [3 /*break*/, 3];
+                        line = lines.shift();
+                        return [4 /*yield*/, executeTerminalLine(terminal, line)];
                     case 2:
-                        if (!(typeof section === 'number')) return [3 /*break*/, 4];
-                        el.classList.remove('typing');
-                        return [4 /*yield*/, utils_1.delay(section)];
-                    case 3:
                         _a.sent();
-                        return [3 /*break*/, 7];
+                        return [3 /*break*/, 1];
+                    case 3: return [4 /*yield*/, utils_1.delay(600)];
                     case 4:
-                        if (!(section === '\n')) return [3 /*break*/, 5];
-                        if (spanElement) {
-                            el.append(document.createElement('br'));
-                        }
-                        spanElement = document.createElement('span');
-                        el.classList.remove('typing');
-                        el.append(spanElement);
-                        return [3 /*break*/, 7];
-                    case 5:
-                        if (!spanElement) return [3 /*break*/, 7];
-                        spanElement.textContent += section;
-                        el.classList.add('typing');
-                        return [4 /*yield*/, utils_1.delay(80)];
-                    case 6:
                         _a.sent();
-                        _a.label = 7;
-                    case 7: return [3 /*break*/, 1];
-                    case 8:
-                        el.classList.remove('typing');
+                        root.classList.remove('terminal--animating');
                         return [2 /*return*/];
                 }
             });
         });
     }
-    function buildTerminalSections(elements) {
-        var transform = function (acc, el) { return __spreadArrays(acc, prepareSection(el)); };
-        return Array.from(elements).reduce(transform, []);
+    function executeTerminalLine(terminal, line) {
+        return __awaiter(this, void 0, void 0, function () {
+            var root, body, delayTime, sequence, seq;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        root = terminal.root, body = terminal.body;
+                        body.append(line.element);
+                        if (!line.element.dataset['delay']) return [3 /*break*/, 2];
+                        delayTime = Number(line.element.dataset['delay']);
+                        return [4 /*yield*/, utils_1.delay(delayTime)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2:
+                        root.classList.add('terminal--typing');
+                        sequence = line.value.split('');
+                        _a.label = 3;
+                    case 3:
+                        if (!(sequence.length > 0)) return [3 /*break*/, 5];
+                        seq = sequence.shift() || '';
+                        line.element.textContent += seq;
+                        return [4 /*yield*/, utils_1.delay(80)];
+                    case 4:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 5: return [4 /*yield*/, utils_1.delay(200)];
+                    case 6:
+                        _a.sent();
+                        root.classList.remove('terminal--typing');
+                        return [2 /*return*/];
+                }
+            });
+        });
     }
-    function prepareSection(element) {
-        if (element instanceof HTMLSpanElement) {
-            return prepareComplexSection(element);
-        }
-        return [];
+    function fetchTerminalLines(terminal) {
+        return terminal.body ? parseTerminalBody(terminal.body) : [];
     }
-    function prepareComplexSection(element) {
-        var text = (element.textContent || '').trim().split('');
-        var sections = __spreadArrays(['\n'], text);
-        if (element.dataset['delay']) {
-            var delay_1 = Number(element.dataset['delay']);
-            sections.splice(1, 0, delay_1);
-        }
-        return sections;
+    function parseTerminalBody(body) {
+        return Array.from(body.children)
+            .filter(function (el) { return el instanceof HTMLParagraphElement; })
+            .map(function (el) { return transformTerminalElement(el); });
+    }
+    function transformTerminalElement(element) {
+        var value = element.textContent || '';
+        element.innerHTML = '';
+        element.remove();
+        return { element: element, value: value };
     }
 });
 define("index", ["require", "exports", "terminal", "utils"], function (require, exports, terminal_1, utils_2) {
