@@ -17,6 +17,7 @@ async function executeTerminalSections(el: HTMLElement, sections: TerminalSectio
       continue
     }
     else if (typeof section === 'number') {
+      el.classList.remove('typing')
       await delay(section)
     }
     else if (section === '\n') {

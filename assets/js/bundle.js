@@ -112,6 +112,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                         return [3 /*break*/, 1];
                     case 2:
                         if (!(typeof section === 'number')) return [3 /*break*/, 4];
+                        el.classList.remove('typing');
                         return [4 /*yield*/, utils_1.delay(section)];
                     case 3:
                         _a.sent();
