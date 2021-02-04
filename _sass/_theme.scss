@@ -36,9 +36,21 @@ body {
   }
 }
 
-.header,
-.section {
-  margin-bottom: 100px;
+@mixin main-section-gaps($size) {
+  .main {
+    // Show whole element with margins on scroll
+    padding-top: $size;
+  }
+  .section {
+    margin-bottom: $size;
+  }
+  @content
+}
+
+@include main-section-gaps($size: 100px) {
+  @media (max-width: 600px) {
+    @include main-section-gaps($size: 60px)
+  }
 }
 
 .container {
