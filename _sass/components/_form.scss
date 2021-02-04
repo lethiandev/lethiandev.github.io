@@ -1,0 +1,32 @@
+.form {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.control {
+  padding: 8px 12px;
+  font-size: 18pt;
+  font-family: inherit;
+  outline: none;
+  border: solid 2px #000000;
+  border-radius: 0 !important;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+
+  &::placeholder {
+    color: #d0d0d0;
+  }
+
+  &:focus {
+    border-color: #40c800;
+  }
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-label {
+  display: block;
+}

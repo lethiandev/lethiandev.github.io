@@ -20,6 +20,8 @@ body {
 }
 
 @import 'basic';
+@import 'components/button';
+@import 'components/form';
 @import 'components/terminal';
 @import 'components/parallax';
 
@@ -57,7 +59,7 @@ body {
 .container {
   margin: 0 auto;
   padding: 0 20px;
-  max-width: 960px;
+  max-width: 900px;
 }
 
 h1, h2, h3, h4, h5, h6 {

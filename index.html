@@ -4,7 +4,7 @@ layout: home
 ---
 <section class="section">
   <h2>About me</h2>
-  <p>
+  <p class="text-center">
     Hi, I'm Konrad Nowakowski and welcome on my portfolio.
     Mainly I'm working as a JavaScript/TypeScript Developer and I have knowledge in both areas - frontend and backend.
     I've been working with technologies such as Angular, Ionic, ngrx, NodeJS, Express and more.
@@ -23,4 +23,29 @@ layout: home
     </div>
     {% endfor %}
   </div>
+</section>
+
+<section class="section">
+  <h2>Contact</h2>
+  <p class="text-center">
+    You can contact me by emailing me directly or using the contact form.
+    Either way I&nbsp;will be happy to hear from you.
+  </p>
+  <form class="form" action="/" method="get">
+    <div class="control-group">
+      <label class="control-label">Your name</label>
+      <input class="control" type="text" name="name" placeholder="John Doe">
+    </div>
+    <div class="control-group">
+      <label class="control-label">Your email address</label>
+      <input class="control" type="text" name="email" placeholder="foo@example.com">
+    </div>
+    <div class="control-group">
+      <label class="control-label">Message</label>
+      <textarea class="control" name="message" rows="6" placeholder="Just be polite please"></textarea>
+    </div>
+    <div class="control-group">
+      <button class="button" type="submit">Submit</button>
+    </div>
+  </form>
 </section>

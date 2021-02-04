@@ -1,0 +1,17 @@
+.button {
+  background: #e8e8e8;
+  padding: 8px 12px;
+  font-size: 18pt;
+  font-family: inherit;
+  outline: none;
+  border: solid 2px #000000;
+  border-radius: 0 !important;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+
+  &:active, &:focus {
+    background-color: #ffffff;
+    border-color: #40c800;
+  }
+}
