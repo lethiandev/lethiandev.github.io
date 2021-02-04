@@ -1,6 +1,7 @@
 html, body {
   //font-family: 'Quicksand', sans-serif;
   font-family: 'VT323', monospace;
+  font-size: 18pt;
   overflow: hidden;
 }
 
@@ -35,8 +36,40 @@ body {
   }
 }
 
+.header,
+.section {
+  margin-bottom: 100px;
+}
+
 .container {
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
   max-width: 960px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 20px;
+  text-align: center;
+
+  &::before {
+    color: #40c800;
+    content: '.-~^#| ';
+  }
+  &::after {
+    color: #40c800;
+    content: ' |#^~-.';
+  }
+
+  @media (max-width: 600px) {
+    &::before {
+      content: '#| ';
+    }
+    &::after {
+      content: ' |#';
+    }
+  }
+}
+
+h2 {
+  font-size: 36pt;
 }
