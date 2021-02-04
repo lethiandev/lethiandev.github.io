@@ -17,7 +17,12 @@
   <main id="main" class="main">
     {{ content }}
   </main>
-  <script src="/assets/js/require.js" data-main="index"></script>
+  <script src="/assets/js/require.js"></script>
   <script src="/assets/js/bundle.js"></script>
+  <script>
+    ;(function (requirejs) {
+      requirejs(['index'])
+    })(requirejs)
+  </script>
 </body>
 </html>
