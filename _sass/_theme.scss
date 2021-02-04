@@ -61,37 +61,3 @@ body {
   padding: 0 20px;
   max-width: 900px;
 }
-
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 20px;
-  white-space: nowrap;
-  text-align: center;
-
-  // Force one-liner
-  display: flex;
-  justify-content: center;
-
-  &::before {
-    margin-right: 8px;
-    content: '.-~^#|';
-    color: #40c800;
-  }
-  &::after {
-    margin-left: 8px;
-    content: '|#^~-.';
-    color: #40c800;
-  }
-
-  @media (max-width: 600px) {
-    &::before {
-      content: '-#|';
-    }
-    &::after {
-      content: '|#-';
-    }
-  }
-}
-
-h2 {
-  font-size: 36pt;
-}
