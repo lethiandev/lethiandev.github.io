@@ -37,6 +37,13 @@ body {
     max-width: 960px;
     height: 100%;
   }
+
+  @media (orientation: landscape) {
+    padding: 40px 20px;
+    .terminal-body {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 @mixin main-section-gaps($size) {
