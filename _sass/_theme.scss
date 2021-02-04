@@ -64,23 +64,30 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
+  white-space: nowrap;
   text-align: center;
 
+  // Force one-liner
+  display: flex;
+  justify-content: center;
+
   &::before {
+    margin-right: 8px;
+    content: '.-~^#|';
     color: #40c800;
-    content: '.-~^#| ';
   }
   &::after {
+    margin-left: 8px;
+    content: '|#^~-.';
     color: #40c800;
-    content: ' |#^~-.';
   }
 
   @media (max-width: 600px) {
     &::before {
-      content: '#| ';
+      content: '-#|';
     }
     &::after {
-      content: ' |#';
+      content: '|#-';
     }
   }
 }
