@@ -62,7 +62,7 @@ body {
     @include main-section-gaps($size: 60px)
   }
   @media (max-width: 800px) and (orientation: landscape) {
-    @include main-section-gaps($size: 40px)
+    @include main-section-gaps($size: 60px)
   }
 }
 
