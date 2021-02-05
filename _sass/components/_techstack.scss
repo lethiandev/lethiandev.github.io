@@ -1,0 +1,28 @@
+.techstack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.techstack-logo {
+  width: 64px*3;
+
+  img {
+    width: 100%;
+    transform: scale(1);
+  }
+  &:hover img {
+    animation: flip-card 200ms ease-out;
+  }
+
+  @media (max-width: 600px) {
+    width: 64px*2.5;
+  }
+}
+
+@keyframes flip-card {
+  0% { transform: scaleX(1); }
+  50% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
