@@ -1,7 +1,8 @@
 .parallax {
   background: #000000;
-  overflow: hidden;
-  transform-style: preserve-3d;
+
+  // Force hardware rendering
+  transform: scale3d(1);
 }
 
 .parallax-layer {
@@ -10,30 +11,26 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  transform-style: preserve-3d;
-  transform-origin: center;
 
   &:nth-child(1) {
     background-image: url("/assets/images/far-buildings.png");
-    transform: translateZ(-7px) scale(8);
   }
 
   &:nth-child(2) {
     background-image: url("/assets/images/back-buildings.png");
-    transform: translateZ(-2.5px) scale(3.5);
   }
 
   &:nth-child(3) {
     background-image: url("/assets/images/foreground.png");
-    transform: translateZ(-1px) scale(2);
   }
 }
 
-.parallax,
 .parallax-layer {
-  position: absolute;
+  transform: translateY(0px);
+  position: fixed;
+  z-index: -1;
   top: 0;
   left: 0;
-  width: 100vw;
+  right: 0;
   height: 100vh;
 }

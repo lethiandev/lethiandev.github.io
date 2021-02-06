@@ -69,7 +69,24 @@ define("utils", ["require", "exports"], function (require, exports) {
     }
     exports.delay = delay;
 });
-define("terminal", ["require", "exports", "utils"], function (require, exports, utils_1) {
+define("parallax", ["require", "exports", "utils"], function (require, exports, utils_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.createParallax = void 0;
+    function createParallax(target) {
+        var layers = target.children;
+        window.addEventListener('scroll', function (ev) {
+            utils_1.forEachElement(layers, updateLayer);
+        }, { passive: true });
+    }
+    exports.createParallax = createParallax;
+    function updateLayer(layer) {
+        var scale = Number(layer.dataset['scrollScale']);
+        var travel = window.scrollY / scale;
+        layer.style.transform = "translateY(-" + travel + "px)";
+    }
+});
+define("terminal", ["require", "exports", "utils"], function (require, exports, utils_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createTerminal = void 0;
@@ -121,7 +138,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                     case 2:
                         _a.sent();
                         return [3 /*break*/, 1];
-                    case 3: return [4 /*yield*/, utils_1.delay(600)];
+                    case 3: return [4 /*yield*/, utils_2.delay(600)];
                     case 4:
                         _a.sent();
                         root.classList.remove('terminal--animating');
@@ -140,7 +157,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                         body.append(line.element);
                         if (!line.element.dataset['delay']) return [3 /*break*/, 2];
                         delayTime = Number(line.element.dataset['delay']);
-                        return [4 /*yield*/, utils_1.delay(delayTime)];
+                        return [4 /*yield*/, utils_2.delay(delayTime)];
                     case 1:
                         _a.sent();
                         _a.label = 2;
@@ -152,11 +169,11 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                         if (!(sequence.length > 0)) return [3 /*break*/, 5];
                         seq = sequence.shift() || '';
                         line.element.textContent += seq;
-                        return [4 /*yield*/, utils_1.delay(80)];
+                        return [4 /*yield*/, utils_2.delay(80)];
                     case 4:
                         _a.sent();
                         return [3 /*break*/, 3];
-                    case 5: return [4 /*yield*/, utils_1.delay(200)];
+                    case 5: return [4 /*yield*/, utils_2.delay(200)];
                     case 6:
                         _a.sent();
                         root.classList.remove('terminal--typing');
@@ -180,23 +197,14 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
         return { element: element, value: value };
     }
 });
-define("index", ["require", "exports", "terminal", "utils"], function (require, exports, terminal_1, utils_2) {
+define("index", ["require", "exports", "parallax", "terminal", "utils"], function (require, exports, parallax_1, terminal_1, utils_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var terminalElements = document.getElementsByClassName('terminal');
-    utils_2.forEachElement(terminalElements, startTerminal);
-    function startTerminal(el) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, terminal_1.createTerminal(el)];
-                    case 1:
-                        _a.sent();
-                        console.log("Terminal done!");
-                        return [2 /*return*/];
-                }
-            });
-        });
+    setupElements('terminal', terminal_1.createTerminal);
+    setupElements('parallax', parallax_1.createParallax);
+    function setupElements(className, callback) {
+        var elements = document.getElementsByClassName(className);
+        utils_3.forEachElement(elements, callback);
     }
 });
 //# sourceMappingURL=bundle.js.map

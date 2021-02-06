@@ -1,22 +1,6 @@
 html, body {
-  //font-family: 'Quicksand', sans-serif;
   font-family: 'VT323', monospace;
   font-size: 18pt;
-  overflow: hidden;
-}
-
-body {
-  // Ensure the body element has scroll bar
-  // WIthout it the parallax effect won't work
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 100vw;
-  height: 100vh;
-
-  // Enable 3D for parallax effect
-  perspective: 1px;
-  perspective-origin: center;
-  transform-style: preserve-3d;
 }
 
 @import 'basic';
@@ -46,6 +30,11 @@ body {
       margin-bottom: 20px;
     }
   }
+}
+
+.main {
+  background: #ffffff;
+  display: block;
 }
 
 @mixin main-section-gaps($size) {

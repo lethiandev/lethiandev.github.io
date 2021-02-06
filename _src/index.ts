@@ -1,10 +1,11 @@
+import { createParallax } from './parallax'
 import { createTerminal } from './terminal'
 import { forEachElement } from './utils'
 
-const terminalElements = document.getElementsByClassName('terminal')
-forEachElement(terminalElements, startTerminal)
+setupElements('terminal', createTerminal)
+setupElements('parallax', createParallax)
 
-async function startTerminal(el: HTMLElement) {
-  await createTerminal(el)
-  console.log("Terminal done!")
+function setupElements(className: string, callback: (el: HTMLElement) => void) {
+  const elements = document.getElementsByClassName(className)
+  forEachElement(elements, callback)
 }
