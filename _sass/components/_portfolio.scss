@@ -47,13 +47,12 @@
   }
 }
 
-// Hide radio input
+// Hide checkbox input
 // Used to reveal project details
 .project > input {
-  position: absolute;
   visibility: hidden;
-  top: 0;
-  left: -1000px;
+  pointer-events: none;
+  position: absolute;
 }
 
 .project-details {
