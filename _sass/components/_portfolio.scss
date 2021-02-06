@@ -34,12 +34,18 @@
     width: 100%;
   }
 
+  // Flip column sides on even projects
+  &:nth-child(even) &-column:last-child {
+    order: -1;
+  }
+
   @media (max-width: 800px) {
     &-row {
       flex-wrap: wrap;
     }
     &-column {
       margin-bottom: 20px;
+      order: initial !important;
     }
     &-column:last-child {
       margin-bottom: 0;
