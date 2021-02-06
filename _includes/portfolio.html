@@ -1,28 +1,22 @@
 <div class="portfolio">
-  <div class="portfolio-project">
-    <div class="portfolio-project-column">
-      <h3>Test project name</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Architecto harum sunt velit laborum repudiandae repellat
-        a, eos possimus est!
-      </p>
+  {% for project in site.projects %}
+  <div class="project">
+    <div class="project-row">
+      <div class="project-column">
+        <h3>{{ project.title }}</h3>
+        <p>
+          {{ project.description }}
+          <label for="project-{{ forloop.index }}">Read more</label>
+        </p>
+      </div>
+      <div class="project-column">
+        <img src="/assets/images/foreground.png" />
+      </div>
     </div>
-    <div class="portfolio-project-column">
-      <img src="/assets/images/foreground.png" />
-    </div>
-  </div>
-  <div class="portfolio-project">
-    <div class="portfolio-project-column">
-      <h3>Test project name</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Architecto harum sunt velit laborum repudiandae repellat
-        a, eos possimus est!
-      </p>
-    </div>
-    <div class="portfolio-project-column">
-      <img src="/assets/images/foreground.png" />
+    <input id="project-{{ forloop.index }}" type="checkbox">
+    <div class="project-details">
+      {{ project.content }}
     </div>
   </div>
+  {% endfor %}
 </div>
