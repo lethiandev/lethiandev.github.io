@@ -47,6 +47,17 @@
   }
 }
 
+.project-read-more {
+  margin-top: -10px;
+  label {
+    color: #40c800;
+    cursor: pointer;
+    &:hover {
+      color: lighten($color: #40c800, $amount: 5%);
+    }
+  }
+}
+
 // Hide checkbox input
 // Used to reveal project details
 .project > input {

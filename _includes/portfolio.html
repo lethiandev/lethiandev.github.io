@@ -4,10 +4,10 @@
     <div class="project-row">
       <div class="project-column">
         <h3>{{ project.title }}</h3>
-        <p>
-          {{ project.description }}
-          <label for="project-{{ forloop.index }}">Read more</label>
-        </p>
+        <p>{{ project.description }}</p>
+        <div class="project-read-more">
+          <label for="project-{{ forloop.index }}">Read more &raquo;</label>
+        </div>
       </div>
       <div class="project-column">
         <img src="/assets/images/foreground.png" />
