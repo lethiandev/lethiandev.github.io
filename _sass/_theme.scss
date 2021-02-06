@@ -48,22 +48,19 @@ body {
 }
 
 @mixin main-section-gaps($size) {
-  // Show whole element with margins on scroll
-  .section:first-of-type {
-    padding-top: $size;
-  }
   .section {
-    padding: ($size * 0.5) 0;
+    padding-top: ($size * 0.5 - 6px);
+    padding-bottom: ($size * 0.5);
   }
   @content
 }
 
-@include main-section-gaps($size: 100px) {
+@include main-section-gaps($size: 140px) {
   @media (max-width: 600px) {
-    @include main-section-gaps($size: 60px)
+    @include main-section-gaps($size: 100px)
   }
   @media (max-height: 600px) and (orientation: landscape) {
-    @include main-section-gaps($size: 60px)
+    @include main-section-gaps($size: 100px)
   }
 }
 
