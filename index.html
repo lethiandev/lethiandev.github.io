@@ -23,7 +23,8 @@ layout: default
 <section class="section section-portfolio">
   <div class="container">
     <h2>Portfolio</h2>
-    <div>
+    {% include portfolio.html %}
+    <!-- <div>
       {% for project in site.projects %}
       <div>
         <h2>{{ project.title }}</h2>
@@ -32,7 +33,7 @@ layout: default
         <a href="{{ project.url }}">Go to {{ project.title }}</a>
       </div>
       {% endfor %}
-    </div>
+    </div> -->
   </div>
 </section>
 
