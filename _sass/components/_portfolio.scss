@@ -73,6 +73,9 @@
   position: relative;
   display: none;
 
+  // Animate card in slide-in manner
+  animation: slide-in 100ms ease-out;
+
   input:checked + & {
     display: block;
   }
@@ -89,4 +92,10 @@
     top: -10px;
     left: 50%;
   }
+}
+
+
+@keyframes slide-in {
+  0% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
 }
