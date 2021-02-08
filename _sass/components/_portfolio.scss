@@ -28,15 +28,19 @@
   }
 
   &-image {
-    cursor: pointer;
-    display: block;
-  }
-
-  &-image img {
     border: solid 4px #000000;
     box-sizing: border-box;
+    cursor: pointer;
     display: block;
-    width: 100%;
+
+    &:hover {
+      border-color: #40c800;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
   }
 
   // Flip column sides on even projects
