@@ -169,7 +169,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                         if (!(sequence.length > 0)) return [3 /*break*/, 5];
                         seq = sequence.shift() || '';
                         line.element.textContent += seq;
-                        return [4 /*yield*/, utils_2.delay(80)];
+                        return [4 /*yield*/, utils_2.delay(60)];
                     case 4:
                         _a.sent();
                         return [3 /*break*/, 3];

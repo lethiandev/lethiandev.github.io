@@ -61,7 +61,7 @@ async function executeTerminalLine(terminal: Terminal, line: TerminalLine) {
   while (sequence.length > 0) {
     const seq = sequence.shift() || ''
     line.element.textContent += seq
-    await delay(80)
+    await delay(60)
   }
 
   await delay(200)
