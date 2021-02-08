@@ -1,35 +1,6 @@
 <div class="portfolio">
   {% for project in site.projects reversed %}
-  <div class="project">
-    <div class="project-row">
-      <div class="project-column">
-        <h3>{{ project.title }}</h3>
-        <p>{{ project.description }}</p>
-        <div class="project-read-more">
-          <label for="project-{{ forloop.index }}">Read more &raquo;</label>
-        </div>
-      </div>
-      <div class="project-column">
-        <label class="project-image" for="project-modal-{{ forloop.index }}">
-          <img src="/assets/images/foreground.png" />
-        </label>
-      </div>
-    </div>
-    <input id="project-{{ forloop.index }}" type="checkbox">
-    <div class="project-details">
-      {{ project.content }}
-    </div>
-    <input id="project-modal-{{ forloop.index }}" type="checkbox">
-    <div class="modal">
-      <div class="modal-content">
-        <div class="modal-close">
-          <label for="project-modal-{{ forloop.index }}"></label>
-        </div>
-        <div class="modal-body">
-          {{ project.content }}
-        </div>
-      </div>
-    </div>
-  </div>
+    {% assign index = forloop.index %}
+    {% include project.html %}
   {% endfor %}
 </div>
