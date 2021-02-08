@@ -27,7 +27,12 @@
     width: 100%;
   }
 
-  &-column img {
+  &-image {
+    cursor: pointer;
+    display: block;
+  }
+
+  &-image img {
     border: solid 4px #000000;
     box-sizing: border-box;
     display: block;

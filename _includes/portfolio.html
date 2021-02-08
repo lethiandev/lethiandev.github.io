@@ -10,12 +10,25 @@
         </div>
       </div>
       <div class="project-column">
-        <img src="/assets/images/foreground.png" />
+        <label class="project-image" for="project-modal-{{ forloop.index }}">
+          <img src="/assets/images/foreground.png" />
+        </label>
       </div>
     </div>
     <input id="project-{{ forloop.index }}" type="checkbox">
     <div class="project-details">
       {{ project.content }}
+    </div>
+    <input id="project-modal-{{ forloop.index }}" type="checkbox">
+    <div class="modal">
+      <div class="modal-content">
+        <div class="modal-close">
+          <label for="project-modal-{{ forloop.index }}"></label>
+        </div>
+        <div class="modal-body">
+          {{ project.content }}
+        </div>
+      </div>
     </div>
   </div>
   {% endfor %}

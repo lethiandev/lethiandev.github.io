@@ -1,0 +1,39 @@
+.modal {
+  padding: 20px;
+  background: rgba(0,0,0,.75);
+  box-sizing: border-box;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  // Show modal by checkbox control
+  input:checked + & {
+    display: flex;
+  }
+}
+
+.modal-content {
+  padding: 20px;
+  background: #fff;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+
+  label {
+    background: url('/assets/images/modal-close.png');
+    cursor: pointer;
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+}
