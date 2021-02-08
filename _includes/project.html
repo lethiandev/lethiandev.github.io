@@ -8,9 +8,11 @@
       </div>
     </div>
     <div class="project-column">
-      <label class="project-image" for="project-modal-{{ index }}">
-        <img src="/assets/images/foreground.png" />
-      </label>
+      {% if project.gallery %}
+        <label class="project-image" for="project-modal-{{ index }}">
+          <img src="{{ project.gallery[0] }}" />
+        </label>
+      {% endif %}
     </div>
   </div>
   {% include project--details.html %}
