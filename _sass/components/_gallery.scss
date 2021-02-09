@@ -1,3 +1,7 @@
+.gallery {
+  user-select: none;
+}
+
 // Hide radio inputs
 .gallery > input {
   visibility: hidden;
