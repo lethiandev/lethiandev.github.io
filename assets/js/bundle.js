@@ -210,6 +210,10 @@ define("modal", ["require", "exports"], function (require, exports) {
                     toggler.checked = false;
                 }
             });
+            // Disable wheel scroll on modal
+            backdrop.addEventListener('wheel', function (ev) {
+                ev.preventDefault();
+            });
         }
         // Also handle modal galleries
         createModalGallery(modal);

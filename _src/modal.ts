@@ -8,6 +8,11 @@ export function createModal(modal: HTMLElement) {
         toggler.checked = false
       }
     })
+
+    // Disable wheel scroll on modal
+    backdrop.addEventListener('wheel', ev => {
+      ev.preventDefault()
+    })
   }
 
   // Also handle modal galleries
