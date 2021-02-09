@@ -1,0 +1,18 @@
+<div class="gallery">
+  {% for slide in project.gallery %}
+    <input type="radio" name="gallery-{{ index }}" id="gallery-{{ index }}-slide-{{ forloop.index }}" {% if forloop.first %}checked{% endif %}>
+    <div class="gallery-slide">
+      <div class="gallery-image">
+        <img src="{{ slide }}" />
+      </div>
+      {% unless forloop.first %}
+        {% assign slidePrev = forloop.index | minus:1 %}
+        <label class="gallery-prev" for="gallery-{{ index }}-slide-{{ slidePrev }}"></label>
+      {% endunless %}
+      {% unless forloop.last %}
+        {% assign slideNext = forloop.index | plus:1 %}
+        <label class="gallery-next" for="gallery-{{ index }}-slide-{{ slideNext }}"></label>
+      {% endunless %}
+    </div>
+  {% endfor %}
+</div>

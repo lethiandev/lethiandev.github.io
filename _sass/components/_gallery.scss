@@ -1,0 +1,51 @@
+// Hide radio inputs
+.gallery > input {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+.gallery-slide {
+  display: none;
+  position: relative;
+
+  input:checked + & {
+    display: block;
+  }
+}
+
+.gallery-image,
+.gallery-image img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.gallery-prev,
+.gallery-next {
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: block;
+  opacity: 0.0;
+  width: 30%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+.gallery-prev {
+  background-image: url('/assets/images/gallery-prev.png');
+  background-position: left 40px center;
+  left: 0;
+}
+
+.gallery-next {
+  background-image: url('/assets/images/gallery-next.png');
+  background-position: right 40px center;
+  right: 0;
+}
