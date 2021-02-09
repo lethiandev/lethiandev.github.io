@@ -9,9 +9,7 @@ github_username: lethiandev
 # Build Settings
 markdown: kramdown
 collections:
-  projects:
-    output: true
-    permalink: /:collection/:title
+  - projects
 defaults:
   -
     scope:
