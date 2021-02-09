@@ -1,10 +1,7 @@
 .modal {
-  padding: 20px;
-  background: rgba(0,0,0,.75);
-  box-sizing: border-box;
   display: none;
-  align-items: center;
-  justify-content: center;
+
+  // Keep modal on screen all times
   position: fixed;
   z-index: 100;
   top: 0;
@@ -12,16 +9,40 @@
   bottom: 0;
   left: 0;
 
-  // Show modal by checkbox control
+  // Toggle modal by checkbox control
   input:checked + & {
-    display: flex;
+    display: block;
   }
 }
 
-.modal-content {
+.modal-backdrop {
   padding: 20px;
-  background: #fff;
+  background: rgba(0,0,0,.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
   position: relative;
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 .modal-close {

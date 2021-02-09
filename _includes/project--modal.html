@@ -1,11 +1,13 @@
 <input id="project-modal-{{ index }}" type="checkbox">
 <div class="modal">
-  <div class="modal-content">
-    <div class="modal-close">
-      <label for="project-modal-{{ index }}"></label>
-    </div>
-    <div class="modal-body">
-      {{ project.content }}
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-close">
+        <label for="project-modal-{{ index }}"></label>
+      </div>
+      <div class="modal-body">
+        {% include project--gallery.html %}
+      </div>
     </div>
   </div>
 </div>
