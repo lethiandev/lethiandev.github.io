@@ -4,6 +4,9 @@
     <div class="gallery-slide">
       <div class="gallery-image">
         <img src="{{ slide }}" />
+        <div class="gallery-index">
+          {{ forloop.index }} of {{ project.gallery.size }}
+        </div>
       </div>
       {% unless forloop.first %}
         {% assign slidePrev = forloop.index | minus:1 %}
