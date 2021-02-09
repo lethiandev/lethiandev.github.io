@@ -197,11 +197,29 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
         return { element: element, value: value };
     }
 });
-define("index", ["require", "exports", "parallax", "terminal", "utils"], function (require, exports, parallax_1, terminal_1, utils_3) {
+define("modal", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.createModal = void 0;
+    function createModal(modal) {
+        var backdrop = modal.getElementsByClassName('modal-backdrop').item(0);
+        var toggler = modal.previousElementSibling;
+        if (backdrop instanceof HTMLElement && toggler instanceof HTMLInputElement) {
+            backdrop.addEventListener('click', function (ev) {
+                if (ev.target === backdrop) {
+                    toggler.checked = false;
+                }
+            });
+        }
+    }
+    exports.createModal = createModal;
+});
+define("index", ["require", "exports", "parallax", "terminal", "modal", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, utils_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     setupElements('terminal', terminal_1.createTerminal);
     setupElements('parallax', parallax_1.createParallax);
+    setupElements('modal', modal_1.createModal);
     function setupElements(className, callback) {
         var elements = document.getElementsByClassName(className);
         utils_3.forEachElement(elements, callback);
