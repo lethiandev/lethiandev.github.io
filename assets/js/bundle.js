@@ -195,6 +195,13 @@ define("modal", ["require", "exports"], function (require, exports) {
     function createModal(modal) {
         var backdrop = modal.getElementsByClassName('modal-backdrop').item(0);
         var toggler = modal.previousElementSibling;
+        if (toggler instanceof HTMLInputElement) {
+            toggler.addEventListener('change', function (ev) {
+                if (toggler.checked) {
+                    selectFirstGallerySlide(modal);
+                }
+            });
+        }
         if (backdrop instanceof HTMLElement && toggler instanceof HTMLInputElement) {
             backdrop.addEventListener('click', function (ev) {
                 if (ev.target === backdrop) {
@@ -208,6 +215,15 @@ define("modal", ["require", "exports"], function (require, exports) {
         }
     }
     exports.createModal = createModal;
+    function selectFirstGallerySlide(modal) {
+        var gallery = modal.getElementsByClassName('gallery').item(0);
+        if (gallery instanceof HTMLElement) {
+            var firstInput = gallery.getElementsByTagName('input').item(0);
+            if (firstInput instanceof HTMLInputElement) {
+                firstInput.checked = true;
+            }
+        }
+    }
 });
 define("index", ["require", "exports", "parallax", "terminal", "modal", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, utils_3) {
     "use strict";
