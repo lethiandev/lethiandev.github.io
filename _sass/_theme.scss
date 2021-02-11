@@ -66,8 +66,13 @@ html, body {
   }
 }
 
-.container {
+.container,
+.container-form {
   margin: 0 auto;
   padding: 0 20px;
   max-width: 900px;
+}
+
+.container-form {
+  max-width: 600px;
 }
