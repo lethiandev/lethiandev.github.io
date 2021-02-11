@@ -60,6 +60,92 @@ define("utils", ["require", "exports"], function (require, exports) {
     }
     exports.delay = delay;
 });
+define("form", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.createForm = void 0;
+    function createForm(form) {
+        if (form instanceof HTMLFormElement) {
+            handleFormSubmit(form);
+        }
+    }
+    exports.createForm = createForm;
+    function handleFormSubmit(form) {
+        form.addEventListener('submit', function (ev) {
+            ev.preventDefault();
+            processFormSend(form);
+        });
+    }
+    function processFormSend(form) {
+        return __awaiter(this, void 0, void 0, function () {
+            var err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        form.classList.add('form--sending');
+                        form.classList.remove('form--error');
+                        setFormDisabled(form, true);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, 4, 5]);
+                        return [4 /*yield*/, sendFormData(form)];
+                    case 2:
+                        _a.sent();
+                        form.classList.add('form--success');
+                        return [3 /*break*/, 5];
+                    case 3:
+                        err_1 = _a.sent();
+                        form.classList.add('form--error');
+                        setFormDisabled(form, false);
+                        return [3 /*break*/, 5];
+                    case 4:
+                        form.classList.remove('form--sending');
+                        return [7 /*endfinally*/];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    }
+    function sendFormData(form) {
+        return __awaiter(this, void 0, void 0, function () {
+            var formData, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        formData = new FormData(form);
+                        return [4 /*yield*/, fetch(form.action, {
+                                method: form.method,
+                                body: formData,
+                                headers: {
+                                    'Accept': 'application/json',
+                                },
+                            })];
+                    case 1:
+                        result = _a.sent();
+                        if (result.status !== 200) {
+                            throw new Error(result.statusText);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }
+    function setFormDisabled(form, disabled) {
+        for (var _i = 0, _a = Array.from(form.elements); _i < _a.length; _i++) {
+            var element = _a[_i];
+            if (element instanceof HTMLInputElement) {
+                element.readOnly = disabled;
+            }
+            if (element instanceof HTMLTextAreaElement) {
+                element.readOnly = disabled;
+            }
+            if (element instanceof HTMLButtonElement) {
+                element.disabled = disabled;
+                element.blur();
+            }
+        }
+    }
+});
 define("parallax", ["require", "exports", "utils"], function (require, exports, utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -225,12 +311,13 @@ define("modal", ["require", "exports"], function (require, exports) {
         }
     }
 });
-define("index", ["require", "exports", "parallax", "terminal", "modal", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, utils_3) {
+define("index", ["require", "exports", "parallax", "terminal", "modal", "form", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, form_1, utils_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     setupElements('terminal', terminal_1.createTerminal);
     setupElements('parallax', parallax_1.createParallax);
     setupElements('modal', modal_1.createModal);
+    setupElements('form', form_1.createForm);
     function setupElements(className, callback) {
         var elements = document.getElementsByClassName(className);
         utils_3.forEachElement(elements, callback);
