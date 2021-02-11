@@ -206,34 +206,8 @@ define("modal", ["require", "exports"], function (require, exports) {
                 ev.preventDefault();
             });
         }
-        // Also handle modal galleries
-        createModalGallery(modal);
     }
     exports.createModal = createModal;
-    function createModalGallery(modal) {
-        var gallery = modal.getElementsByClassName('gallery').item(0);
-        var toggler = modal.previousElementSibling;
-        if (gallery instanceof HTMLElement && toggler instanceof HTMLInputElement) {
-            toggler.addEventListener('change', function (ev) {
-                if (toggler.checked) {
-                    updateGalleryImages(gallery);
-                }
-            });
-        }
-    }
-    function updateGalleryImages(gallery) {
-        var images = gallery.getElementsByClassName('gallery-image');
-        // Calculate max content height
-        // TODO: Add paddings calculation based on elements
-        var height = window.innerHeight - 80;
-        for (var _i = 0, _a = Array.from(images); _i < _a.length; _i++) {
-            var image = _a[_i];
-            var imgElement = image.children.item(0);
-            if (imgElement instanceof HTMLImageElement) {
-                imgElement.style.maxHeight = height + "px";
-            }
-        }
-    }
 });
 define("index", ["require", "exports", "parallax", "terminal", "modal", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, utils_3) {
     "use strict";
