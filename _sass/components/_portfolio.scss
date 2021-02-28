@@ -5,13 +5,14 @@
   background-position: center top;
   background-repeat:  repeat-y;
 
-  @media (max-width: 800px) {
+  @media (max-width: 600px) {
     background-image: none;
   }
 }
 
 .project {
   margin-bottom: 40px;
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -19,30 +20,11 @@
   &-row {
     margin: 0 -20px;
     display: flex;
-    flex-direction: row;
   }
 
   &-column {
     margin: 0 20px;
-    flex: 1 1 auto;
     width: 100%;
-  }
-
-  &-image {
-    border: solid 4px #000000;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-
-    &:hover {
-      border-color: #40c800;
-    }
-
-    img {
-      display: block;
-      width: 100%;
-      image-rendering: auto;
-    }
   }
 
   // Flip column sides on even projects
@@ -50,17 +32,35 @@
     order: -1;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 600px) {
     &-row {
       flex-wrap: wrap;
     }
-    &-column {
-      margin-bottom: 20px;
-      order: initial !important;
-    }
     &-column:last-child {
-      margin-bottom: 0;
+      // Move image column to top
+      order: -1 !important;
     }
+  }
+}
+
+.project-image {
+  border: solid 4px #000000;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+
+  &:hover {
+    border-color: #40c800;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    image-rendering: auto;
+  }
+
+  @media (max-width: 600px) {
+    margin-bottom: 20px;
   }
 }
 
