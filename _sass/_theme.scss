@@ -58,6 +58,8 @@ html, body {
 }
 
 .section {
+  overflow: hidden;
+
   &-tech-stack,
   &-contact {
     background-image: url('/assets/images/dithering.png');
