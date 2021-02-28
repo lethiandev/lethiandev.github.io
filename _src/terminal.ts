@@ -17,19 +17,6 @@ export async function createTerminal(root: HTMLElement) {
     const lines = fetchTerminalLines(terminal)
     await executeTerminal(terminal, lines)
   }
-
-  // Smooth scroll on continue click
-  const link = root.querySelector('.terminal-continue')
-  if (link instanceof HTMLAnchorElement) {
-    link.addEventListener('click', ev => {
-      const href = link.getAttribute('href') || ''
-      const target = document.querySelector(href)
-      if (target instanceof HTMLElement) {
-        target.scrollIntoView({ behavior: 'smooth' })
-        ev.preventDefault()
-      }
-    })
-  }
 }
 
 async function executeTerminal(terminal: Terminal, lines: TerminalLine[]) {

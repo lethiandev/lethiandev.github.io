@@ -169,7 +169,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
     exports.createTerminal = void 0;
     function createTerminal(root) {
         return __awaiter(this, void 0, void 0, function () {
-            var body, terminal, lines, link;
+            var body, terminal, lines;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -181,19 +181,7 @@ define("terminal", ["require", "exports", "utils"], function (require, exports, 
                     case 1:
                         _a.sent();
                         _a.label = 2;
-                    case 2:
-                        link = root.querySelector('.terminal-continue');
-                        if (link instanceof HTMLAnchorElement) {
-                            link.addEventListener('click', function (ev) {
-                                var href = link.getAttribute('href') || '';
-                                var target = document.querySelector(href);
-                                if (target instanceof HTMLElement) {
-                                    target.scrollIntoView({ behavior: 'smooth' });
-                                    ev.preventDefault();
-                                }
-                            });
-                        }
-                        return [2 /*return*/];
+                    case 2: return [2 /*return*/];
                 }
             });
         });
@@ -311,13 +299,36 @@ define("modal", ["require", "exports"], function (require, exports) {
         }
     }
 });
-define("index", ["require", "exports", "parallax", "terminal", "modal", "form", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, form_1, utils_3) {
+define("smscroll", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.createSmoothScroll = void 0;
+    function createSmoothScroll(anchor) {
+        if (anchor instanceof HTMLAnchorElement) {
+            bindClickEvent(anchor);
+        }
+    }
+    exports.createSmoothScroll = createSmoothScroll;
+    function bindClickEvent(anchor) {
+        anchor.addEventListener('click', function (ev) { return handleClickEvent(anchor, ev); });
+    }
+    function handleClickEvent(anchor, ev) {
+        var href = anchor.getAttribute('href') || '';
+        var target = document.querySelector(href);
+        if (target instanceof HTMLElement) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            ev.preventDefault();
+        }
+    }
+});
+define("index", ["require", "exports", "parallax", "terminal", "modal", "form", "smscroll", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, form_1, smscroll_1, utils_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     setupElements('terminal', terminal_1.createTerminal);
     setupElements('parallax', parallax_1.createParallax);
     setupElements('modal', modal_1.createModal);
     setupElements('form', form_1.createForm);
+    document.querySelectorAll('a[href^="#"]').forEach(function (el) { return el instanceof HTMLElement && smscroll_1.createSmoothScroll(el); });
     function setupElements(className, callback) {
         var elements = document.getElementsByClassName(className);
         utils_3.forEachElement(elements, callback);
