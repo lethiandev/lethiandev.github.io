@@ -321,7 +321,32 @@ define("smscroll", ["require", "exports"], function (require, exports) {
         }
     }
 });
-define("index", ["require", "exports", "parallax", "terminal", "modal", "form", "smscroll", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, form_1, smscroll_1, utils_3) {
+define("viewport", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.createViewportEnter = void 0;
+    function createViewportEnter(target) {
+        if (target && target.dataset["viewport"]) {
+            var className = target.dataset["viewport"];
+            bindViewportEnter(target, className);
+        }
+    }
+    exports.createViewportEnter = createViewportEnter;
+    function bindViewportEnter(target, className) {
+        window.addEventListener('scroll', handleWindowScroll);
+        handleWindowScroll();
+        function handleWindowScroll() {
+            var rect = target.getBoundingClientRect();
+            var yoffset = rect.y - window.innerHeight;
+            if (yoffset < 0.0) {
+                target.classList.add(className);
+                // Handle scroll event only when needed
+                window.removeEventListener('scroll', handleWindowScroll);
+            }
+        }
+    }
+});
+define("index", ["require", "exports", "parallax", "terminal", "modal", "form", "smscroll", "viewport", "utils"], function (require, exports, parallax_1, terminal_1, modal_1, form_1, smscroll_1, viewport_1, utils_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     setupElements('terminal', terminal_1.createTerminal);
@@ -329,6 +354,7 @@ define("index", ["require", "exports", "parallax", "terminal", "modal", "form", 
     setupElements('modal', modal_1.createModal);
     setupElements('form', form_1.createForm);
     document.querySelectorAll('a[href^="#"]').forEach(function (el) { return el instanceof HTMLElement && smscroll_1.createSmoothScroll(el); });
+    document.querySelectorAll('[data-viewport]').forEach(function (el) { return el instanceof HTMLElement && viewport_1.createViewportEnter(el); });
     function setupElements(className, callback) {
         var elements = document.getElementsByClassName(className);
         utils_3.forEachElement(elements, callback);

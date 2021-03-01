@@ -26,11 +26,13 @@
   background-position: 0% 00%;
   image-rendering: pixelated;
 
-  animation: un-pixelate 1s step-end;
-
   &-aspect {
     border: solid 4px #000000;
     width: 256px;
+  }
+
+  &.animate {
+    animation: un-pixelate 1.2s step-end;
   }
 }
 
