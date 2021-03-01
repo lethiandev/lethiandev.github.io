@@ -21,9 +21,22 @@
 
 .profile-image {
   padding-top: 100%;
+  background: url('/assets/images/profile.png');
+  background-size: auto 100%;
+  background-position: 0% 00%;
+  image-rendering: pixelated;
+
+  animation: un-pixelate 1s step-end;
 
   &-aspect {
-    background: #ff0000;
-    width: 250px;
+    border: solid 4px #000000;
+    width: 256px;
   }
+}
+
+@keyframes un-pixelate {
+  0%      { background-position: 100% 0; }
+  33.333% { background-position: 200% 0; }
+  66.666% { background-position: 300% 0; }
+  100%    { background-position: 300% 0; }
 }
